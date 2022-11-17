@@ -35,7 +35,57 @@ static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
             ((uint32_t) (g) << 16) |
             (uint32_t) (b);
 }
-
+int replayans;
+int replayip() {
+    int replay_input;
+    printf("Do you want to replay the recording? y/n \n");
+    replay_input = getchar();
+    if (replay_input == 'y'){
+        return 1;
+    }
+    if (replay_input == 'n'){
+        return 0;
+    }
+    else{
+        return 5;
+    }
+}
+int colorans;
+int setneopixcolor() {
+    int color_input;
+    printf("Select the color for the NeoPixel : r/g/b \n");
+    color_input = getchar();
+    if (color_input == 'r'){
+        return 1;
+    }
+    if (color_input == 'g'){
+        return 2;
+    }
+    if (color_input == 'b'){
+        return 3;
+    }
+    else{
+        return 5;
+    }
+}
+int brightans;
+int setneopixbrightness() {
+    int bright_input;
+    printf("Select the brightness for the NeoPixel : l/m/h \n");
+    bright_input = getchar();
+    if (bright_input == 'l'){
+        return 1;
+    }
+    if (bright_input == 'm'){
+        return 2;
+    }
+    if (bright_input == 'h'){
+        return 3;
+    }
+    else{
+        return 5;
+    }    
+}
 
 int main() {
     //set_sys_clock_48();
@@ -57,32 +107,199 @@ int main() {
     gpio_init(POW_PIN);
     gpio_set_dir(POW_PIN, GPIO_OUT);
 
+    int bootpinrecord = 0;
 
     while (1) {
-        if(!(gpio_get(BOOT_PIN))==1){
-            sleep_ms(200);
-            for (int x=0; x<200; x++){
-            printf("Enter BOOT_PIN value loop\n");
-            uint bootval = !(gpio_get(BOOT_PIN));
-            sleep_ms(50);
-                if (bootval==1){
-                    sequence[x]=1;
-                }
-                else{
-                    sequence[x]=0;
-                }
-            }
 
-            sleep_ms(200);
-
-            for (int a=0; a<200; a++){
-                printf("Entered POW_PIN set loop\n");
-                gpio_put(POW_PIN, sequence[a]);
-                printf("Neopixel sequences\n");
-                put_pixel(urgb_u32(0xC7,0x15,0x85));
+        if (bootpinrecord==0){
+            if(!(gpio_get(BOOT_PIN))==1){
+                sleep_ms(200);
+                for (int x=0; x<200; x++){
+                printf("Enter BOOT_PIN value loop\n");
+                uint bootval = !(gpio_get(BOOT_PIN));
                 sleep_ms(50);
+                    if (bootval==1){
+                        sequence[x]=1;
+                    }
+                    else{
+                        sequence[x]=0;
+                    }
+                }
+                bootpinrecord = 1;
             }
+            sleep_ms(200);
         }
-        //printf("Hello ! Neopixel Blinks\n");
+        else if (bootpinrecord==1){
+        recordplay:
+            replayans = replayip();
+            colorans = setneopixcolor();
+            brightans = setneopixbrightness();
+            if (replayans == 1){
+                if (colorans==1){
+                    if (brightans==1){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x32,0x00,0x00));
+                            sleep_ms(50);
+                        }
+                    }
+                    if (brightans==2){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xB4,0x00,0x00));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==3){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xDC,0x00,0x00));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==5){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xFF,0x00,0x00));
+                            sleep_ms(50);
+                        }                            
+                    }
+                }
+                if (colorans==2){
+                    if (brightans==1){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0x32,0x00));
+                            sleep_ms(50);
+                        }
+                    }
+                    if (brightans==2){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0xB4,0x00));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==3){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0xDC,0x00));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==5){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0xFF,0x00));
+                            sleep_ms(50);
+                        }                            
+                    } 
+                }
+                if (colorans==3){
+                    if (brightans==1){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0x00,0x32));
+                            sleep_ms(50);
+                        }
+                    }
+                    if (brightans==2){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0x00,0xB4));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==3){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0x00,0xDC));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==5){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0x00,0x00,0xFF));
+                            sleep_ms(50);
+                        }                            
+                    }
+                }
+                if (colorans==5){
+                    if (brightans==1){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xFF,0xB6,0xC1));
+                            sleep_ms(50);
+                        }
+                    }
+                    if (brightans==2){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xF3,0x61,0x96));
+                            sleep_ms(50);
+                        }                        
+                    }
+                    if (brightans==3){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xFF,0x10,0xF0));
+                            sleep_ms(50);
+                        }                        
+                    }                    
+                    if (brightans==5){
+                        for (int a=0; a<200; a++){
+                            printf("Entered POW_PIN set loop\n");
+                            gpio_put(POW_PIN, sequence[a]);
+                            printf("Neopixel sequences\n");
+                            put_pixel(urgb_u32(0xC7,0x15,0x85));
+                            sleep_ms(50);
+                        }  
+                    }
+       
+                }
+  
+            }
+            if(replayans==0){
+                printf("Recording is not played as per input!\n");
+            }
+            if(replayans==5){
+                printf("Enter a valid input : 'y' or 'n' \n");
+                goto recordplay;
+            }
+            bootpinrecord=0;
+        
+        goto recordplay;
+        }
     }
 }
