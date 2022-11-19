@@ -1,5 +1,3 @@
-// @author: Ruturaj A. Nanoti
-// @brief: Some Register definitions for the APDS9960 Sensor.
 
 #ifndef APDS_REGISTERS_H
 #define APDS_REGISTERS_H
