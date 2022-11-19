@@ -68,7 +68,6 @@ int main() {
     while(!stdio_usb_connected());
 
     while(1){
-        //----------------------------Record Key presses---------------------------------
         int wait_time = 0, idx = 0;
         int wait_time_arr[NUM_KEY_PRESS] = {0};
 
@@ -94,7 +93,6 @@ int main() {
             }
             printf("\n");
         } if (user_inp == 'p') {
-            //----------------------------Replay Key presses---------------------------------
             int wait_time_input = 0;
             /* printf("Playing..\n"); */
             idx = NUM_KEY_PRESS;
