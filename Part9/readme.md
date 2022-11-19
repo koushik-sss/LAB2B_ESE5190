@@ -6,3 +6,4 @@ The mask is later used to check if the prox and color values can be transmitted,
 Output:
 
 
+https://github.com/koushik-sss/LAB2B_ESE5190/blob/main/Part9/WhatsApp%20Video%202022-11-19%20at%2000.21.49.mp4?raw=true
